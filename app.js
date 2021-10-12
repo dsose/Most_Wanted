@@ -82,13 +82,13 @@ function displayPerson(person , people){
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
+  personInfo += "Height: " + person.height + "\n";
+  personInfo += "Weight: " + person.weight + "\n";
+  personInfo += "Occupation: " + person.occupation + "\n";
+  personInfo += "Eye Color: " + person.eyeColor + "\n";
+  personInfo += "Parents: " + person.parents + "\n";
+  personInfo += "Current Spouse: " + person.spouse + "\n";
+  personInfo += "Age: " + person.age + "\n";    //We will have to fix this one
   // TODO: finish getting the rest of the information to display
   alert(personInfo);
 }
