@@ -24,16 +24,16 @@ function app(people){
 }
 
 // Menu function to call once you find who you are looking for
-function mainMenu(person, people){
+function mainMenu(personArray, people){
 
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
 
-  if(!person){
+  if(!personArray){
     alert("Could not find that individual.");
     return app(people); // restart
   }
 
-  let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+  let displayOption = prompt("Found " + personArray[0].firstName + " " + personArray[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
 
   switch(displayOption){
     case "info":
@@ -51,7 +51,7 @@ function mainMenu(person, people){
     case "quit":
     return; // stop execution
     default:
-    return mainMenu(person, people); // ask again
+    return mainMenu(personArray, people); // ask again
   }
 }
 
