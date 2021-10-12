@@ -1,9 +1,5 @@
 "use strict"
-/*
-Build all of your functions for displaying and gathering information below (GUI).
-*/
 
-// app is the function called to start the entire application
 function app(people){
   let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   let searchResults;
@@ -12,47 +8,50 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      // TODO: search by traits
-      break;
-      default:
-    app(people); // restart app
-      break;
+        searchByTraits(people);    
+        break;
+    default:
+        app(people);
+        break;
   }
   
-  // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
-  mainMenu(searchResults, people);
+      mainMenu(searchResults, people);
 }
 
-// Menu function to call once you find who you are looking for
-function mainMenu(person, people){
 
-  /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
+function mainMenu(personArray, people){
 
-  if(!person){
+  if(!personArray){
     alert("Could not find that individual.");
-    return app(people); // restart
+    return app(people); 
   }
 
   let displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
 
+  if (displayOption === null) {
+    app(people);
+}
+else {
+    displayOption = displayOption.toLowerCase(); 
+
   switch(displayOption){
     case "info":
-    displayPerson(personArray[0], people)
-    break;
+        displayPerson(personArray[0], people)
+        break;
     case "family":
-    // TODO: get person's family
-    break;
+        displayFamily(personArray[0], people);
+        break;
     case "descendants":
-    // TODO: get person's descendants
-    break;
+        displayDescendants(personArray[0], people);
+        break;
     case "restart":
-    app(people); // restart
-    break;
+        app(people); 
+        break;
     case "quit":
-    return; // stop execution
+        return; 
     default:
-    return mainMenu(person, people); // ask again
-  }
+        return mainMenu(person, people);
+    }     
 }
 
 function searchByName(people){
@@ -71,7 +70,6 @@ function searchByName(people){
   return foundPerson;
 }
 
-// alerts a list of people
 function displayPeople(people){
   alert(people.map(function(person){
     return person.firstName + " " + person.lastName;
@@ -79,8 +77,6 @@ function displayPeople(people){
 }
 
 function displayPerson(person , people){
-  // print all of the information about a person:
-  // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Height: " + person.height + "\n";
   personInfo += "Weight: " + person.weight + "\n";
@@ -89,11 +85,11 @@ function displayPerson(person , people){
   personInfo += "Parents: " + person.parents + "\n";
   personInfo += "Current Spouse: " + person.spouse + "\n";
   personInfo += "Age: " + person.age + "\n";    //We will have to fix this one
-  // TODO: finish getting the rest of the information to display
+  
   alert(personInfo);
 }
 
-// function that prompts and validates user input
+
 function promptFor(question, valid){
   do{
     var response = prompt(question).trim();
