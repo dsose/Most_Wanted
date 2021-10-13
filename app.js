@@ -22,7 +22,7 @@ function app(people){
 function mainMenu(personArray, people){
 
   if(!personArray){
-    alert("Could not find that individual.");
+    console.log("Could not find that individual.");
     return app(people); 
   }
 
@@ -168,7 +168,7 @@ switch (eyeColorSearch) {
 
 function lookUpOccupation(people) {
 
-let occupation = promptFor("What is the personArray's occupation?", chars);
+let occupation = promptFor("What is the person's occupation?", chars);
 let occupationFilteredArray = people.filter(function (element) {
 
     if (element.occupation === occupation) {
@@ -181,7 +181,7 @@ return occupationFilteredArray;
 
 function lookUpEyeColor(people) {
 
-let eyeColor = promptFor("What is the personArray's eye color?", chars);
+let eyeColor = promptFor("What is the person's eye color?", chars);
 let eyeColorFilteredArray = people.filter(function (element) {
 
     if (element.eyeColor === eyeColor) {
@@ -194,7 +194,7 @@ return eyeColorFilteredArray;
 
 function lookUpHeight(people) {
 
-let height = parseInt(promptFor("What is the personArray's height?", chars));
+let height = parseInt(promptFor("What is the person's height?", chars));
 let heightFilteredArray = people.filter(function (element) {
 
     if (element.height === height) {
@@ -207,7 +207,7 @@ return heightFilteredArray;
 
 function lookUpWeight(people) {
 
-let weight = parseInt(promptFor("What is the personArray's weight?", chars));
+let weight = parseInt(promptFor("What is the person's weight?", chars));
 let weightFilteredArray = people.filter(function (element) {
 
     if (element.weight === weight) {
@@ -221,16 +221,6 @@ return weightFilteredArray;
 
 
 
-function displayPerson(person , people){
-  let personInfo = "First Name: " + person.firstName + "\n";
-  personInfo += "Height: " + person.height + "\n";
-  personInfo += "Weight: " + person.weight + "\n";
-  personInfo += "Occupation: " + person.occupation + "\n";
-  personInfo += "Eye Color: " + person.eyeColor + "\n";
-  personInfo += "Parents: " + person.parents + "\n";
-  personInfo += "Current Spouse: " + person.spouse + "\n";
-  personInfo += "Age: " + person.age + "\n";   
- 
   function searchByAge(people) {
 
     let ageSearch = promptFor("Do you want to search by age? Enter yes or no.", yesNo).toLowerCase();
@@ -264,7 +254,16 @@ function displayPerson(person , people){
   console.log(personInfo);
 }
 
-
+function displayPerson(person , people){
+  let personInfo = "First Name: " + person.firstName + "\n";
+  personInfo += "Height: " + person.height + "\n";
+  personInfo += "Weight: " + person.weight + "\n";
+  personInfo += "Occupation: " + person.occupation + "\n";
+  personInfo += "Eye Color: " + person.eyeColor + "\n";
+  personInfo += "Parents: " + person.parents + "\n";
+  personInfo += "Current Spouse: " + person.spouse + "\n";
+  personInfo += "Age: " + person.age + "\n";   
+ 
 function promptFor(question, valid){
   do{
     let response = prompt(question).trim();
