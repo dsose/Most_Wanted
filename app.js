@@ -249,7 +249,6 @@ function searchByAge(people) {
 
 }
 
-
 function displayPerson(personArray , people){
   let personInfo = "First Name: " + personArray.firstName + "\n";
   personInfo += "Height: " + personArray.height + "\n";
@@ -261,7 +260,6 @@ function displayPerson(personArray , people){
   personInfo += "Age: " + personArray.age + "\n"; 
   console.log(personArray);  
 }
-
 
 function promptFor(question, valid){
  
@@ -284,7 +282,6 @@ function searchTraitsGender(people, searchType, control){
     return recTraits(foundPerson, control);
   }
   
-  
   function searchTraitsDob(people, searchType, control){
     let dob = prompt("Enter the person's ${searchType} ? Please use month/day/year");
     let foundPerson = people.filter(function(person){
@@ -298,7 +295,6 @@ function searchTraitsGender(people, searchType, control){
     return recTraits(foundPerson, control);
   }
   
-
   function searchTraitsEye(people, searchType, control){
     let eye = promptFor("Enter the person's ${searchType} ?", eyeColorCallBack);
     let foundPerson = people.filter(function(person){
@@ -311,7 +307,6 @@ function searchTraitsGender(people, searchType, control){
     });
     return recTraits(foundPerson, control);
   }
-  
   
   function searchTraitsHeight(people, searchType, control){
     let height = prompt("Enter the person's ${searchType} ?");
@@ -372,7 +367,6 @@ function searchTraitsGender(people, searchType, control){
     return recTraits(foundPerson, control);
   }
 
-  
   function searchTraitsOccupation(people, searchType, control){
     let occupation = prompt("Enter the person's ${searchType} ?");
     let foundPerson = people.filter(function(person){
@@ -385,8 +379,6 @@ function searchTraitsGender(people, searchType, control){
     });
     return recTraits(foundPerson, control);
   }
-  
- 
   function promptFor(question, valid){
     do{
       var response = prompt(question).trim();
@@ -454,7 +446,6 @@ function searchTraitsGender(people, searchType, control){
   }
   
   function getDescendants(personArray, people) {
-  
     let descendants = [];
   
     descendants = people.filter(function (element) {
@@ -470,7 +461,6 @@ function searchTraitsGender(people, searchType, control){
   }
   
   function getChildren(personArray, people) {
-
     let children = [];
     let childrenToReturn = "";
   
@@ -495,7 +485,6 @@ function searchTraitsGender(people, searchType, control){
   }
 
   function getSiblings(personArray, people) {
-
     let siblings = [];
     let siblingsToReturn = "";
   
@@ -527,7 +516,6 @@ function searchTraitsGender(people, searchType, control){
   }
 
   function displayFamily(personArray, people) {
-
     let parents = [];
     let parentsToReturn = "";
   
@@ -541,16 +529,13 @@ function searchTraitsGender(people, searchType, control){
             }
         });
     }
-  
+
     for (let i = 0; i < parents.length; i++) {
         parentsToReturn += parents[i].firstName + ". " + parents[i].lastName + ". ";
     }
-  
     return parentsToReturn;
   }
-  
   function getSpouse(personArray, people) {
-  
     let spouse;
     let spouseArray = [];
     let spouseToReturn = "";
@@ -565,10 +550,8 @@ function searchTraitsGender(people, searchType, control){
             }
         });
     }
-  
+
     spouse = spouseArray.pop();
-  
     spouseToReturn = spouse.firstName + " " + spouse.lastName;
-  
     return spouseToReturn;
   }
