@@ -250,9 +250,6 @@ function searchByAge(people) {
 }
 
 
-  
-  
-
 function displayPerson(personArray , people){
   let personInfo = "First Name: " + personArray.firstName + "\n";
   personInfo += "Height: " + personArray.height + "\n";
@@ -265,20 +262,170 @@ function displayPerson(personArray , people){
 }
 
 function promptFor(question, valid){
-  do{
-    let response = prompt(question).trim();
+ 
+    do{
+        let response = prompt(question).trim();
   } while(!response || !valid(response));
   return response;
 }
 
-// helper function to pass into promptFor to validate yes/no answers
-function yesNo(input){
-  return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
-}
+function searchTraitsGender(people, searchType, control){
+    let gender = promptFor("Enter the person's ${searchType} ?", genderCallBack);
+    let foundPerson = people.filter(function(person){
+      if(person.gender === gender){ 
+        return true
+      }
+      else{
+        return false
+      }
+    });
+    return recTraits(foundPerson, control);
+  }
+  
+  
+  function searchTraitsDob(people, searchType, control){
+    let dob = prompt("Enter the person's ${searchType} ? Please use month/day/year");
+    let foundPerson = people.filter(function(person){
+      if(person.dob === dob){ 
+        return true
+      }
+      else{
+        return false
+      }
+    });
+    return recTraits(foundPerson, control);
+  }
+  
 
-// helper function to pass in as default promptFor validation
-function chars(input){
-  return true; // default validation only
-}
+  function searchTraitsEye(people, searchType, control){
+    let eye = promptFor("Enter the person's ${searchType} ?", eyeColorCallBack);
+    let foundPerson = people.filter(function(person){
+      if(person.eyeColor === eye){ 
+        return true
+      }
+      else{
+        return false
+      }
+    });
+    return recTraits(foundPerson, control);
+  }
+  
+  
+  function searchTraitsHeight(people, searchType, control){
+    let height = prompt("Enter the person's ${searchType} ?");
+    notANumber(height, searchType);
+    let foundPerson = people.filter(function(person){
+      if(person.height == height){ 
+        return true
+      }
+      else{
+        return false
+      }
+    });
+    return recTraits(foundPerson, control);
+  }
+  
+  
+  function searchTraitsWeight(people, searchType, control){
+    let weight = prompt("Enter the person's ${searchType} ?");
+    notANumber(weight, searchType);
+    let foundPerson = people.filter(function(person){
+      if(person.weight == weight){ 
+        return true
+      }
+      else{
+        return false
+      }
+    });
+    return recTraits(foundPerson, control);
+  }
+  
 
+  function searchTraitsParents(people, searchType, control){
+    let parents = prompt("Enter the person's ${searchType} ?");
+    notANumber(parents, searchType);
+    let foundPerson = people.filter(function(person){
+      if(person.parents[0] == parents ||person.parents[1] == parents ){ 
+        return true
+      }
+      else{
+        return false
+      }
+    });
+    return recTraits(foundPerson, control);
+  }
+  
 
+  function searchTraitsSpouse(people, searchType, control){
+    let spouse = prompt("Enter the person's ${searchType} ?");
+    notANumber(spouse, searchType);
+    let foundPerson = people.filter(function(person){
+      if(person.currentSpouse == spouse){ 
+        return true
+      }
+      else{
+        return false
+      }
+    });
+    return recTraits(foundPerson, control);
+  }
+
+  
+  function searchTraitsOccupation(people, searchType, control){
+    let occupation = prompt("Enter the person's ${searchType} ?");
+    let foundPerson = people.filter(function(person){
+      if(person.occupation == occupation){ 
+        return true
+      }
+      else{
+        return false
+      }
+    });
+    return recTraits(foundPerson, control);
+  }
+  
+ 
+  function promptFor(question, valid){
+    do{
+      var response = prompt(question).trim();
+    } while(!response || !valid(response));
+    return response;
+  }
+  
+  function yesNo(input){
+    if(input.toLowerCase() != "yes" && input.toLowerCase() != "no"){
+      alert("Invalid input. Please try again.");
+    }
+    return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
+  }
+  function genderCallBack(input){
+    if(input.toLowerCase() != "male" && input.toLowerCase() != "female"){
+      alert("Invalid input. Please try again.");
+    }
+    return input.toLowerCase() == "male" || input.toLowerCase() == "female";
+  }
+  function mainMenuCallBack(input){
+    if(input.toLowerCase() != "info" && input.toLowerCase() != "family" && input.toLowerCase() != "descendants" && input.toLowerCase() != "restart" && input.toLowerCase() != "quit"){
+      alert("Invalid input. Please try again.");
+    }
+    return input.toLowerCase() == "info" || input.toLowerCase() == "family" || input.toLowerCase() == "descendants" || input.toLowerCase() == "restart" || input.toLowerCase() == "quit";
+  }
+  function eyeColorCallBack(input){
+    if(input.toLowerCase() != "black" && input.toLowerCase() != "brown" && input.toLowerCase() != "green" && input.toLowerCase() != "hazel" && input.toLowerCase() != "blue"){
+      alert("Invalid input. Please try again.");
+    }
+    return input.toLowerCase() == "black" || input.toLowerCase() == "brown" || input.toLowerCase() == "green" || input.toLowerCase() == "hazel" || input.toLowerCase() == "blue";
+  }
+  function searchTypeCallBack(input){
+    if(input.toLowerCase() != "gender" && input.toLowerCase() != "dob" && input.toLowerCase() != "eye color" && input.toLowerCase() != "parents" && input.toLowerCase() != "occupation" && input.toLowerCase() != "height" && input.toLowerCase() != "weight" && input.toLowerCase() != "spouse" && input.toLowerCase() != "quit"){
+      alert("Invalid input. Please try again.");
+    }
+    return input.toLowerCase() == "gender" || input.toLowerCase() == "dob" || input.toLowerCase() == "eye color" || input.toLowerCase() == "parents" || input.toLowerCase() == "occupation" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "spouse" || input.toLowerCase() == "quit";
+  }
+  
+ 
+  function chars(input){
+    return true; 
+  }
+  
+ 
