@@ -26,32 +26,32 @@ function mainMenu(personArray, people){
     return app(people); 
   }
 
-  let displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+  let displayOption = prompt("Found " + personArray[0].firstName + " " + personArray[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
 
-  if (displayOption === null) {
-    app(people);
-    }
-    else {
-        displayOption = displayOption.toLowerCase(); 
-    }
-  switch(displayOption){
-    case "info":
-        displayPerson(personArray[0], people)
-        break;
-    case "family":
-        displayFamily(personArray[0], people);
-        break;
-    case "descendants":
-        displayDescendants(personArray[0], people);
-        break;
-    case "restart":
-        app(people); 
-        break;
-    case "quit":
-        return; 
-    default:
-        return mainMenu(person, people);
-    }     
+    if (displayOption === null) {
+        app(people);
+        }
+        else {
+            displayOption = displayOption.toLowerCase(); 
+        }
+    switch(displayOption){
+        case "info":
+            displayPerson(personArray[0], people)
+            break;
+        case "family":
+            displayFamily(personArray[0], people)
+            break;
+        case "descendants":
+            displayDescendants(personArray[0], people)
+            break;
+        case "restart":
+            app(people); 
+            break;
+        case "quit":
+            return; 
+        default:
+            return mainMenu(person, people);
+        }     
 }
 
 function searchByTraits(people) {
@@ -258,8 +258,10 @@ function displayPerson(personArray , people){
   personInfo += "Eye Color: " + personArray.eyeColor + "\n";
   personInfo += "Parents: " + personArray.parents + "\n";
   personInfo += "Current Spouse: " + personArray.spouse + "\n";
-  personInfo += "Age: " + personArray.age + "\n";   
+  personInfo += "Age: " + personArray.age + "\n"; 
+  console.log(personArray);  
 }
+
 
 function promptFor(question, valid){
  
@@ -398,25 +400,19 @@ function searchTraitsGender(people, searchType, control){
     }
     return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
   }
-  function genderCallBack(input){
+  function gender(input){
     if(input.toLowerCase() != "male" && input.toLowerCase() != "female"){
       alert("Invalid input. Please try again.");
     }
     return input.toLowerCase() == "male" || input.toLowerCase() == "female";
   }
-  function mainMenuCallBack(input){
-    if(input.toLowerCase() != "info" && input.toLowerCase() != "family" && input.toLowerCase() != "descendants" && input.toLowerCase() != "restart" && input.toLowerCase() != "quit"){
-      alert("Invalid input. Please try again.");
-    }
-    return input.toLowerCase() == "info" || input.toLowerCase() == "family" || input.toLowerCase() == "descendants" || input.toLowerCase() == "restart" || input.toLowerCase() == "quit";
-  }
-  function eyeColorCallBack(input){
+  function eyeColor(input){
     if(input.toLowerCase() != "black" && input.toLowerCase() != "brown" && input.toLowerCase() != "green" && input.toLowerCase() != "hazel" && input.toLowerCase() != "blue"){
       alert("Invalid input. Please try again.");
     }
     return input.toLowerCase() == "black" || input.toLowerCase() == "brown" || input.toLowerCase() == "green" || input.toLowerCase() == "hazel" || input.toLowerCase() == "blue";
   }
-  function searchTypeCallBack(input){
+  function searchType(input){
     if(input.toLowerCase() != "gender" && input.toLowerCase() != "dob" && input.toLowerCase() != "eye color" && input.toLowerCase() != "parents" && input.toLowerCase() != "occupation" && input.toLowerCase() != "height" && input.toLowerCase() != "weight" && input.toLowerCase() != "spouse" && input.toLowerCase() != "quit"){
       alert("Invalid input. Please try again.");
     }
@@ -428,4 +424,151 @@ function searchTraitsGender(people, searchType, control){
     return true; 
   }
   
- 
+  function displayDescendants(personArray, people) {
+
+    let descendants = findDescendants(personArray, people);
+  
+    if (descendants.length === 0) {
+        descendants = "Descendants not in data set."
+    }
+  
+    alert(descendants);
+    app(people);
+  }
+  
+  function findDescendants(personArray, people) {
+  
+    let descendant = getDescendants(personArray, people);
+    let descendantsToReturn = "";
+  
+    for (let i = 0; i < descendant.length; i++) {
+        descendantsToReturn += descendant[i].firstName + " " + descendant[i].lastName + ". ";
+  
+        if (i >= 0) {
+            let grandChildren = findDescendants(descendant[i], people);
+            descendantsToReturn += grandChildren;
+        }
+    }
+  
+    return descendantsToReturn;
+  }
+  
+  function getDescendants(personArray, people) {
+  
+    let descendants = [];
+  
+    descendants = people.filter(function (element) {
+        if (element.parents.length === 0) {
+            return false;
+        }
+        else if (element.parents[0] === personArray.id || element.parents[1] === personArray.id) {
+            return true;
+        }
+    });
+  
+    return descendants;
+  }
+  
+  function getChildren(personArray, people) {
+
+    let children = [];
+    let childrenToReturn = "";
+  
+    children = people.filter(function (element) {
+        if (element.parents.length === 0) {
+            return false;
+        }
+        else if (element.parents[0] === personArray.id || element.parents[1] === personArray.id) {
+            return true;
+        }
+    });
+  
+    for (let i = 0; i < children.length; i++) {
+        childrenToReturn += children[i].firstName + " " + children[i].lastName + ". ";
+    }
+  
+    if (children.length === 0) {
+        childrenToReturn = "Children not in data set.";
+    }
+  
+    return childrenToReturn;
+  }
+
+  function getSiblings(personArray, people) {
+
+    let siblings = [];
+    let siblingsToReturn = "";
+  
+    if (personArray.parents.length === 0) {
+        return "Siblings not in data set.";
+    }
+    else {
+        siblings = people.filter(function (element) {
+            if (element.parents.length === 0) {
+                return false;
+            }
+            else if (element === personArray) {
+                return false;
+            }
+            else if (element.parents[0] === personArray.parents[0] || element.parents[0] === personArray.parents[1]) {
+                return true;
+            }
+            else if (element.parents[1] === personArray.parents[0] || element.parents[1] === personArray.parents[1]) {
+                return true;
+            }
+        });
+    }
+  
+    for (let i = 0; i < siblings.length; i++) {
+        siblingsToReturn += siblings[i].firstName + " " + siblings[i].lastName + ". ";
+    }
+  
+    return siblingsToReturn;
+  }
+
+  function displayFamily(personArray, people) {
+
+    let parents = [];
+    let parentsToReturn = "";
+  
+    if (personArray.parents.length === 0) {
+        return "Parents not in data set.";
+    }
+    else {
+        parents = people.filter(function (element) {
+            if (element.id === personArray.parents[0] || element.id === personArray.parents[1]) {
+                return true;
+            }
+        });
+    }
+  
+    for (let i = 0; i < parents.length; i++) {
+        parentsToReturn += parents[i].firstName + ". " + parents[i].lastName + ". ";
+    }
+  
+    return parentsToReturn;
+  }
+  
+  function getSpouse(personArray, people) {
+  
+    let spouse;
+    let spouseArray = [];
+    let spouseToReturn = "";
+  
+    if (personArray.currentSpouse === null) {
+        return "Spouse not in data set.";
+    }
+    else {
+        spouseArray = people.filter(function (element) {
+            if (element.id === personArray.currentSpouse) {
+                return true;
+            }
+        });
+    }
+  
+    spouse = spouseArray.pop();
+  
+    spouseToReturn = spouse.firstName + " " + spouse.lastName;
+  
+    return spouseToReturn;
+  }
